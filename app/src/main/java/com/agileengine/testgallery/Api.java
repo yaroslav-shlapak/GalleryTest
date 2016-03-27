@@ -5,8 +5,7 @@ import retrofit.http.GET;
 
 public interface Api {
 
-    @GET("/v1/photos?feature=popular&consumer_key=wB4ozJxTijCwNuggJvPGtBGCRqaZVcF6jsrzUadF&page=3")
+    @GET("/v1/photos?feature=popular&consumer_key=wB4ozJxTijCwNuggJvPGtBGCRqaZVcF6jsrzUadF&page=2")
     public void getData(Callback<Page> response);
-
 
 }
