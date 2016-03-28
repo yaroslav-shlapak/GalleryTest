@@ -44,25 +44,22 @@ public class GridAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        /*if (convertView == null) {
-
+        View view;
+        if (convertView == null) {
+            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
+            view = inflater.inflate(R.layout.item_file, parent, false);
         } else {
-            imageView = (ImageView) convertView;
-        }*/
-
-        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
-
-        View view = inflater.inflate(R.layout.item_file, parent, false);
+            view = convertView;
+        }
 
         Page.Photo photo = photos.get(position);
-
         imageView = (ImageView) view.findViewById(R.id.img);
         imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
         imageView.setPadding(8, 8, 8, 8);
 
         Picasso.with(context).load(photo.getImage_url()).into(imageView);
 
-        return imageView;
+        return view;
     }
 
 }
