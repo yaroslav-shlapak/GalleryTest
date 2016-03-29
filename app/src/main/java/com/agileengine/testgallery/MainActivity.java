@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -22,12 +23,16 @@ import retrofit.client.Response;
 public class MainActivity extends Activity {
 
     private List<Page.Photo> photosList;
-    public static int pageNumber = 2;
-    private int totalItemsAlreadyDownloaded = 0;
-    public static final int ITEMS_PER_PAGE = 20;
+    private int pageNumber = 0;
+    private String feature = "popular";
+    private String consumerKey = "wB4ozJxTijCwNuggJvPGtBGCRqaZVcF6jsrzUadF";
+    public static final String LOG_TAG = "testgalleryLog";
+    private int pagesNumber = 10;
+    private boolean loadingFlag = true;
     private Api api;
     private GridView gridView;
     private GridAdapter gridAdapter;
+    private Callback<Page> pageCallback;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,7 +40,7 @@ public class MainActivity extends Activity {
 
         gridView = (GridView) findViewById(R.id.gridView);
 
-        final RestAdapter restAdapter = new RestAdapter.Builder().setEndpoint("https://api.500px.com/v1").build();
+        final RestAdapter restAdapter = new RestAdapter.Builder().setEndpoint("https://api.500px.com").build();
 
         api = restAdapter.create(Api.class);
 
@@ -43,20 +48,26 @@ public class MainActivity extends Activity {
             @Override
             public void success(Page page, Response response) {
 
+                List<Page.Photo> tempList = page.getPhotos();
                 if(photosList == null) {
-                    photosList = page.getPhotos();
+                    photosList = tempList;
+                    pagesNumber = page.getTotal_pages();
                     gridAdapter = new GridAdapter(getApplicationContext(), photosList);
                     gridView.setAdapter(gridAdapter);
+                    //Log.d(LOG_TAG, " pageCallback photosList == null");
                 } else {
-                    photosList.addAll(page.getPhotos());
+                    photosList.addAll(tempList);
                     gridAdapter.notifyDataSetChanged();
-                    //pageNumber++;
-                }
+                    //pageNumber = photosList.size() / tempList.size();
 
-                //gridAdapter.
-                //gridAdapter = new GridAdapter(getApplicationContext(), photosList);
-                //gridView.setAdapter(gridAdapter);
-                //pageNumber++;
+                }
+                pageNumber = photosList.size() / tempList.size() + 1;
+                //pageNumber = photosList.size() / tempList.size();
+                //Log.d(LOG_TAG, "gridAdapter.getCount() " + gridAdapter.getCount());
+                //Log.d(LOG_TAG, "page.getPhotos().size() " + page.getPhotos().size());
+                //Log.d(LOG_TAG, "photosList.size() " + photosList.size());
+                //Log.d(LOG_TAG, "pageNumber " + pageNumber);
+                loadingFlag = false;
 
             }
 
@@ -65,7 +76,9 @@ public class MainActivity extends Activity {
                 Toast.makeText(getApplicationContext(), "Failed", Toast.LENGTH_SHORT).show();
             }
         };
+
         updateUIpage();
+
 
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v,
@@ -89,8 +102,13 @@ public class MainActivity extends Activity {
 
             @Override
             public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-                if (firstVisibleItem + visibleItemCount >= totalItemCount) {
-                    updateUIpage();
+                if (totalItemCount != 0 && firstVisibleItem + visibleItemCount == totalItemCount) {
+                    if(loadingFlag == false) {
+                        loadingFlag = true;
+                        //Log.d(LOG_TAG, "onScroll");
+                        updateUIpage();
+                    }
+
                 }
             }
 
@@ -104,10 +122,14 @@ public class MainActivity extends Activity {
 
 
     private void updateUIpage() {
-        api.getData( pageCallback);
+        if(pageNumber >= pagesNumber) {
+            Toast.makeText(getApplicationContext(), "End of feed", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        api.getData(feature, consumerKey, pageNumber, pageCallback);
     }
 
-    private Callback<Page> pageCallback;
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
