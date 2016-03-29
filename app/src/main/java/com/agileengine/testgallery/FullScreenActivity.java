@@ -12,6 +12,8 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
+
 public class FullScreenActivity extends Activity {
     private String url;
 
@@ -20,13 +22,16 @@ public class FullScreenActivity extends Activity {
         setContentView(R.layout.full_image);
         Intent intent = getIntent();
 
-        long imageId = intent.getExtras().getLong(MainActivity.class.getName());
 
 
-        url = intent.getExtras().getString(MainActivity.class.getName() + "url");
-        String photoName = intent.getExtras().getString(MainActivity.class.getName() + "photoName");
-        String cameraName = intent.getExtras().getString(MainActivity.class.getName() + "cameraName");
-        String authorName = intent.getExtras().getString(MainActivity.class.getName() + "authorName");
+        Bundle extras = intent.getExtras();
+        ArrayList<Photo> myList = extras.getParcelableArrayList(MainActivity.class.getName() + "photosList");
+
+        int imageId = extras.getInt(MainActivity.class.getName() + "imageId");
+        url = myList.get(imageId).getImage_url();
+        String photoName = myList.get(imageId).getName();
+        String cameraName = myList.get(imageId).getCamera();
+        String authorName = myList.get(imageId).getUser().getFullname();
 
         ImageView imageView = (ImageView) findViewById(R.id.fullImage);
         TextView photoNameTV = (TextView) findViewById(R.id.photoName);

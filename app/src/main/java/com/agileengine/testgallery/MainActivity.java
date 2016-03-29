@@ -13,7 +13,9 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import retrofit.Callback;
 import retrofit.RestAdapter;
@@ -22,7 +24,7 @@ import retrofit.client.Response;
 
 public class MainActivity extends Activity {
 
-    private List<Page.Photo> photosList;
+    private List<Photo> photosList;
     private int pageNumber = 0;
     private String feature = "popular";
     private String consumerKey = "wB4ozJxTijCwNuggJvPGtBGCRqaZVcF6jsrzUadF";
@@ -48,7 +50,7 @@ public class MainActivity extends Activity {
             @Override
             public void success(Page page, Response response) {
 
-                List<Page.Photo> tempList = page.getPhotos();
+                List<Photo> tempList = page.getPhotos();
                 if(photosList == null) {
                     photosList = tempList;
                     pagesNumber = page.getTotal_pages();
@@ -87,12 +89,8 @@ public class MainActivity extends Activity {
                 int imageId = (int) parent.getAdapter().getItemId(position);
 
                 Intent fullScreenIntent = new Intent(v.getContext(), FullScreenActivity.class);
-                fullScreenIntent.putExtra(MainActivity.class.getName() + "url", photosList.get(imageId).getImage_url());
-                //shows photo name, author name and camera model as an overlay
-                fullScreenIntent.putExtra(MainActivity.class.getName() + "photoName", photosList.get(imageId).getName());
-                fullScreenIntent.putExtra(MainActivity.class.getName() + "cameraName", photosList.get(imageId).getCamera());
-                fullScreenIntent.putExtra(MainActivity.class.getName() + "authorName", photosList.get(imageId).getUser().getFullname());
-
+                fullScreenIntent.putExtra(MainActivity.class.getName() + "imageId", imageId);
+                fullScreenIntent.putParcelableArrayListExtra(MainActivity.class.getName() + "photosList", (ArrayList) photosList);
                 MainActivity.this.startActivity(fullScreenIntent);
             }
         });

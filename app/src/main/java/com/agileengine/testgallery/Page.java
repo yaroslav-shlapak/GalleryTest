@@ -1,5 +1,9 @@
 package com.agileengine.testgallery;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import java.io.Serializable;
 import java.util.List;
 
 public class Page {
@@ -41,66 +45,8 @@ public class Page {
 		this.photos = photos;
 	}
 
-	public class Photo {
 
-        private String image_url;
-        private String name;
-        private String camera;
-        private String lens;
-        private User user;
 
-		public String getImage_url() {
-			return image_url;
-		}
 
-		public void setImage_url(String image_url) {
-			this.image_url = image_url;
-		}
-
-        public String getName() {
-            return name;
-        }
-
-        public void setName(String name) {
-            this.name = name;
-        }
-
-        public String getCamera() {
-            return camera;
-        }
-
-        public void setCamera(String camera) {
-            this.camera = camera;
-        }
-
-        public String getLens() {
-            return lens;
-        }
-
-        public void setLens(String lens) {
-            this.lens = lens;
-        }
-
-        public User getUser() {
-            return user;
-        }
-
-        public void setUser(User user) {
-            this.user = user;
-        }
-
-        public class User {
-            public String getFullname() {
-                return fullname;
-            }
-
-            public void setFullname(String fullname) {
-                this.fullname = fullname;
-            }
-
-            private String fullname;
-        }
-
-    }
 
 }

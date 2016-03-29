@@ -20,10 +20,10 @@ import java.util.List;
 
 public class GridAdapter extends BaseAdapter {
     private Context context;
-    private List<Page.Photo> photos;
+    private List<Photo> photos;
     private ImageView imageView;
 
-    public GridAdapter(Context context, List<Page.Photo> objects) {
+    public GridAdapter(Context context, List<Photo> objects) {
 
         this.context = context;
         this.photos = objects;
@@ -55,7 +55,7 @@ public class GridAdapter extends BaseAdapter {
             view = convertView;
         }
 
-        Page.Photo photo = photos.get(position);
+        Photo photo = photos.get(position);
         imageView = (ImageView) view.findViewById(R.id.img);
         imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
         imageView.setPadding(5, 5, 5, 5);
