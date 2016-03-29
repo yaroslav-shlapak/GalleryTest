@@ -1,6 +1,6 @@
-package com.agileengine.testgallery;
+package com.agileengine.testgallery.api;
 
-import java.util.List;
+import com.agileengine.testgallery.data.Page;
 
 import retrofit.Callback;
 import retrofit.http.GET;

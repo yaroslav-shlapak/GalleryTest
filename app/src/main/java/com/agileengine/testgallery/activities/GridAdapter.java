@@ -1,19 +1,18 @@
-package com.agileengine.testgallery;
+package com.agileengine.testgallery.activities;
 
 
 import android.app.Activity;
 import android.content.Context;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 
-import com.squareup.picasso.Callback;
+import com.agileengine.testgallery.R;
+import com.agileengine.testgallery.data.Photo;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;

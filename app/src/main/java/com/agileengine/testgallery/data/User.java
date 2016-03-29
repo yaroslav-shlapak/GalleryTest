@@ -1,4 +1,4 @@
-package com.agileengine.testgallery;
+package com.agileengine.testgallery.data;
 
 import android.os.Parcel;
 import android.os.Parcelable;

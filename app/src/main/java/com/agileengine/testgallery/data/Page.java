@@ -1,9 +1,5 @@
-package com.agileengine.testgallery;
+package com.agileengine.testgallery.data;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-
-import java.io.Serializable;
 import java.util.List;
 
 public class Page {

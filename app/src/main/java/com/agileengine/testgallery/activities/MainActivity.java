@@ -1,10 +1,8 @@
-package com.agileengine.testgallery;
+package com.agileengine.testgallery.activities;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -13,9 +11,13 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.Toast;
 
+import com.agileengine.testgallery.R;
+import com.agileengine.testgallery.data.Page;
+import com.agileengine.testgallery.data.Photo;
+import com.agileengine.testgallery.api.Api;
+
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 import retrofit.Callback;
 import retrofit.RestAdapter;
@@ -56,19 +58,11 @@ public class MainActivity extends Activity {
                     pagesNumber = page.getTotal_pages();
                     gridAdapter = new GridAdapter(getApplicationContext(), photosList);
                     gridView.setAdapter(gridAdapter);
-                    //Log.d(LOG_TAG, " pageCallback photosList == null");
                 } else {
                     photosList.addAll(tempList);
                     gridAdapter.notifyDataSetChanged();
-                    //pageNumber = photosList.size() / tempList.size();
-
                 }
                 pageNumber = photosList.size() / tempList.size() + 1;
-                //pageNumber = photosList.size() / tempList.size();
-                //Log.d(LOG_TAG, "gridAdapter.getCount() " + gridAdapter.getCount());
-                //Log.d(LOG_TAG, "page.getPhotos().size() " + page.getPhotos().size());
-                //Log.d(LOG_TAG, "photosList.size() " + photosList.size());
-                //Log.d(LOG_TAG, "pageNumber " + pageNumber);
                 loadingFlag = false;
 
             }
