@@ -58,7 +58,7 @@ public class GridAdapter extends BaseAdapter {
         Page.Photo photo = photos.get(position);
         imageView = (ImageView) view.findViewById(R.id.img);
         imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-        imageView.setPadding(8, 8, 8, 8);
+        imageView.setPadding(5, 5, 5, 5);
 
         Picasso.with(context).load(photo.getImage_url()).into(imageView);
 

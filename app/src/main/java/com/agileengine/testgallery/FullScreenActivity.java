@@ -4,6 +4,7 @@ package com.agileengine.testgallery;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -31,14 +32,15 @@ public class FullScreenActivity extends Activity {
         TextView photoNameTV = (TextView) findViewById(R.id.photoName);
         TextView cameraNameTV = (TextView) findViewById(R.id.cameraName);
         TextView authorNameTV = (TextView) findViewById(R.id.authorName);
-        Button shareButton = (Button) findViewById(R.id.shareButton);
+        FloatingActionButton shareButton = (FloatingActionButton) findViewById(R.id.shareButton);
+        shareButton.setImageResource(R.drawable.share_android);
 
         photoNameTV.setText(photoName);
         cameraNameTV.setText(cameraName);
         authorNameTV.setText(authorName);
 
         imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-        imageView.setPadding(8, 8, 8, 8);
+        imageView.setPadding(5, 5, 5, 5);
 
         Picasso.with(getApplicationContext()).load(url).into(imageView);
 
@@ -54,7 +56,6 @@ public class FullScreenActivity extends Activity {
     private void shareTextUrl(String url) {
         Intent share = new Intent(android.content.Intent.ACTION_SEND);
         share.setType("text/plain");
-        share.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
 
         // Add data to the intent, the receiving app will decide
         // what to do with it.
