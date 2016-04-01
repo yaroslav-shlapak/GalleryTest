@@ -4,15 +4,11 @@ Implement a simple photo gallery application which displays photo feed from 500p
 
 should fetch paginated photo feed in JSON format with the following REST API call:
 
-https://api.500px.com/v1/photos?feature=popular&consumer_key=wB4ozJxTijCwNuggJvPGtBG
-
-CRqaZVcF6jsrzUadF
+https://api.500px.com/v1/photos?feature=popular&consumer_key=wB4ozJxTijCwNuggJvPGtBGCRqaZVcF6jsrzUadF
 
 Following pages can be retrieved by appending ‘page=N’ parameter:
 
-https://api.500px.com/v1/photos?feature=popular&consumer_key=wB4ozJxTijCwNuggJvPGtBG
-
-CRqaZVcF6jsrzUadF&page=2
+https://api.500px.com/v1/photos?feature=popular&consumer_key=wB4ozJxTijCwNuggJvPGtBGCRqaZVcF6jsrzUadF&page=2
 
 The app should contain two screens:
 
